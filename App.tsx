@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import {
+  Alert,
+  FlatList,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -22,9 +24,20 @@ export default function App() {
   };
 
   const completeTask = (index: number) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
+    Alert.alert('Delete', 'Are you sure to delete task?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          let itemsCopy = [...taskItems];
+          itemsCopy.splice(index, 1);
+          setTaskItems(itemsCopy);
+        },
+      },
+    ]);
   };
 
   return (
@@ -33,12 +46,16 @@ export default function App() {
       <View style={styles.taskWrapper}>
         <Text style={styles.sectionTitle}>Today's Task</Text>
         <View style={styles.items}>
-          {taskItems.map((item, index) => (
-            <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-              <Task text={item} />
-            </TouchableOpacity>
-          ))}
-          {taskItems.length === 0 && <Text>No Items in list</Text>}
+          <FlatList
+            data={taskItems}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity onPress={() => completeTask(index)}>
+                <Task text={item} />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item) => item}
+            ListEmptyComponent={<Text>No Items in list</Text>}
+          />
         </View>
       </View>
 
@@ -83,11 +100,14 @@ const styles = StyleSheet.create({
 
   writeTaskWrapper: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 0,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    backgroundColor: '#FFF',
+    paddingTop: 10,
+    paddingBottom: 20,
   },
 
   input: {
