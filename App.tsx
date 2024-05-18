@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Task from './components/Task';
+import Task from '@/components/Task';
 
 export default function App() {
   const [taskItems, setTaskItems] = useState(['Task 1', 'Task 2']);
