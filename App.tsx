@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Task from './components/Task';
 
 export default function App() {
   const [taskItems, setTaskItems] = useState(['Task 1', 'Task 2']);
@@ -12,7 +13,7 @@ export default function App() {
         <View style={styles.items}>
           {taskItems.map((item, index) => (
             <TouchableOpacity key={index}>
-              <Text>{item}</Text>
+              <Task text={item} />
             </TouchableOpacity>
           ))}
         </View>
