@@ -13,7 +13,7 @@ import Task from '@/components/Task';
 
 export default function App() {
   const [task, setTask] = useState<string>('');
-  const [taskItems, setTaskItems] = useState<string[]>(['Task 1', 'Task 2']);
+  const [taskItems, setTaskItems] = useState<string[]>([]);
 
   const handleAddTask = () => {
     Keyboard.dismiss();
@@ -38,6 +38,7 @@ export default function App() {
               <Task text={item} />
             </TouchableOpacity>
           ))}
+          {taskItems.length === 0 && <Text>No Items in list</Text>}
         </View>
       </View>
 
